@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {updateTradeFromAmount} from '../redux/actionCreators'
+import './components.css';
 
 /**
  * allows user to specify source currency and amount
@@ -30,7 +31,7 @@ class TradeFrom extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="tradeBlock">
 				<h3>Trade</h3>
 
 				<select>
@@ -41,6 +42,7 @@ class TradeFrom extends Component {
 
 				<input
 					type="number"
+					placeholder="Enter your amount"
 					onChange={this.amountUpdated}
 					value={this.state.amount}
 				/>

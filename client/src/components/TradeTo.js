@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import './components.css';
 
 /**
  * allows user to specify destination currency and see quote
@@ -8,7 +9,7 @@ import {connect} from 'react-redux';
 class TradeTo extends Component {
 	render() {
 		return (
-			<div>
+			<div className="tradeBlock">
 				<h3>For</h3>
 
 				<select>

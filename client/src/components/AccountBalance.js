@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import './components.css';
 
 /**
  * displays the user's account balances for holdings in each of USD and BTC.
@@ -7,12 +8,17 @@ import {connect} from 'react-redux';
 class AccountBalance extends Component {
 	render() {
 		return (
-			<div>
+			<div className="balanceBlock">
 				<h3>Account Balance</h3>
 
 				<label>
 					USD:
-					<span>{this.props.usdBalance}</span>
+					<span>
+					{new Intl.NumberFormat('en-US', {
+						style: 'currency',
+						currency: 'USD'
+					}).format(this.props.usdBalance)}
+					</span>
 				</label>
 
 				<br/>
