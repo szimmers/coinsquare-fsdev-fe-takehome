@@ -1,25 +1,35 @@
 const express = require('express');
 const request = require('request');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 
 const app = express();
-const jsonParser = bodyParser.json();
+//const jsonParser = bodyParser.json();
 
 const port = process.env.PORT || 3001;
 
-const BASE_URL = "https://api.bitfinex.com/v1";
+/**
+ * base url for API for Bitfinex.
+ * c.f. https://docs.bitfinex.com/docs/public-endpoints
+ * @type {string}
+ */
+const BASE_BTX_URL = "https://api.bitfinex.com/v1";
 
-// custom middleware
+// for debugging, let's see each request we get
 app.use('/', function(req, res, next) {
 	console.log('req url:', req.url);
 	next();
 });
 
-app.get('/api/quote/btcusd', function(req, res) {
+/**
+ * gets the last trade price for BTC/USD
+ */
+app.get('/api/ticker/btcusd', function(req, res) {
 
-	request.get(BASE_URL + '/pubticker/btcusd', function(error, response, body) {
+	request.get(BASE_BTX_URL + '/pubticker/btcusd', function(error, response, body) {
 		if (error) {
-			console.error(error)
+			let msg = `Could not fetch ticker info: ${error}`;
+			console.error(msg);
+			res.status(500).send({error: msg});
 		}
 		else {
 			const result = JSON.parse(body);
@@ -32,18 +42,45 @@ app.get('/api/quote/btcusd', function(req, res) {
 
 });
 
-// e.g. http://localhost:3000/item/77x?foo=bar
-app.get('/item/:id', function(req, res) {
-	res.json({
-		id: req.params.id,
-		foo: req.query.foo
-	});
-});
+/**
+ * gets the last trade price for BTC/USD
+ */
+app.get('/api/quote/btcusd/:amount', function(req, res) {
+	// try to convert the value we got into a number
+	let amount = parseFloat(req.params.amount);
 
-app.get('/api', function(req, res) {
-	res.json({
-		brick: 'chair'
+	// if that fails, we're done
+	if (isNaN(amount)) {
+		let msg = `Amount must be a number, got: ${req.params.amount}`;
+		console.error(msg);
+		return res.status(400).send({error: msg});
+	}
+
+	// need to ensure said amount is > 0
+	if (amount <= 0) {
+		let msg = `Amount must be positive, got: ${amount}`;
+		console.error(msg);
+		return res.status(400).send({error: msg});
+	}
+
+	// great, let's grab the last traded price and return a quote
+	request.get(BASE_BTX_URL + '/pubticker/btcusd', function(error, response, body) {
+		if (error) {
+			let msg = `Could not fetch ticker info: ${error}`;
+			console.error(msg);
+			res.status(500).send({error: msg});
+		}
+		else {
+			const result = JSON.parse(body);
+			let lastPrice = result.last_price;
+			let quote = amount * lastPrice;
+
+			res.json({
+				quote: quote
+			});
+		}
 	});
+
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

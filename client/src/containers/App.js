@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import logo from '../logo.svg';
 import './App.css';
 import AccountBalance from '../components/AccountBalance';
+import TradeFrom from '../components/TradeFrom';
+import TradeTo from '../components/TradeTo';
 
 class App extends Component {
 	componentWillMount() {
-		axios.get('/api/quote/btcusd')
+		axios.get('/api/ticker/btcusd')
 			.then(function (response) {
 				console.log('r:', response.data);
 			})
@@ -18,11 +19,9 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo"/>
-					<h1 className="App-title">Welcome to React</h1>
-				</header>
 				<AccountBalance />
+				<TradeFrom />
+				<TradeTo />
 			</div>
 		);
 	}
