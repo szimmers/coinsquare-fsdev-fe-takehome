@@ -5,7 +5,7 @@ import './App.css';
 
 class App extends Component {
 	componentWillMount() {
-		axios.get('/api')
+		axios.get('/api/quote/btcusd')
 			.then(function (response) {
 				console.log('r:', response.data);
 			})
