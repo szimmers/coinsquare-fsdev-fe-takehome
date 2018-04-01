@@ -16,13 +16,16 @@ class TradeButton extends Component {
 	 * allows user to execute the trade w/ the quoted amount
 	 */
 	executeTrade() {
-		console.log(`TRADE BUTTON: USD ${this.props.tradeFromAmount} for BTC ${this.props.tradeToQuote}`);
-		this.props.executeTrade(this.props.tradeFromAmount, this.props.tradeToQuote);
+		const {tradeFromAmount, tradeToQuote} = this.props;
+		this.props.executeTrade(tradeFromAmount, tradeToQuote);
 	}
 
 	render() {
 		return (
-			<button onClick={this.executeTrade}>
+			<button
+				onClick={this.executeTrade}
+				disabled={!this.props.canTrade}
+			>
 				Trade
 			</button>
 		);
@@ -37,7 +40,8 @@ class TradeButton extends Component {
 function mapStateToProps(state) {
 	return {
 		tradeFromAmount: state.tradeFromAmount,
-		tradeToQuote: state.tradeToQuote
+		tradeToQuote: state.tradeToQuote,
+		canTrade: state.canTrade
 	};
 }
 

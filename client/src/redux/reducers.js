@@ -9,7 +9,8 @@ const initialState = {
 	usdBalance: 156.12,
 	btcBalance: 0,
 	tradeFromAmount: 0,
-	tradeToQuote: 0
+	tradeToQuote: 0,
+	canTrade: false
 };
 
 /**
@@ -33,10 +34,18 @@ const rootReducer = (state = initialState, action) => {
 
 		case types.UPDATE_TRADE_FROM_AMOUNT:
 			console.log('payload:', action.payload);
+
+			let userHasPositiveFromBalance = (state.usdBalance > 0);
+			let userHasEnteredNumericAmount = !isNaN(parseFloat(action.payload.amount));
+			let userIsNotOverdrawing = (action.payload.amount < state.usdBalance);
+
+			let canTrade = userHasPositiveFromBalance && userHasEnteredNumericAmount && userIsNotOverdrawing;
+
 			return {
 				...state,
 				tradeFromAmount: action.payload.amount,
-				tradeToQuote: action.payload.quote
+				tradeToQuote: action.payload.quote,
+				canTrade: canTrade
 			};
 
 		default:
