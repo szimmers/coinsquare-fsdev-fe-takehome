@@ -40,6 +40,7 @@ class TradeFrom extends Component {
 				<br/>
 
 				<input
+					type="number"
 					onChange={this.amountUpdated}
 					value={this.state.amount}
 				/>
