@@ -25,7 +25,7 @@ const rootReducer = (state = initialState, action) => {
 			let tradeAmount = action.payload.amount;
 			let tradeQuote = action.payload.quote;
 
-			console.log(`EXECUTE: USD ${tradeAmount} for BTC ${tradeQuote}`);
+			//console.log(`EXECUTE: USD ${tradeAmount} for BTC ${tradeQuote}`);
 
 			let newUsdBalance = state.usdBalance - tradeAmount;
 			let newBtcBalance = state.btcBalance + tradeQuote;
@@ -33,13 +33,14 @@ const rootReducer = (state = initialState, action) => {
 			return {...state, usdBalance: newUsdBalance, btcBalance: newBtcBalance};
 
 		case types.UPDATE_TRADE_FROM_AMOUNT:
-			console.log('payload:', action.payload);
-
+			// do error checking to ensure user can make trade. state var canTrade tracks this.
 			let userHasPositiveFromBalance = (state.usdBalance > 0);
 			let userHasEnteredNumericAmount = !isNaN(parseFloat(action.payload.amount));
 			let userIsNotOverdrawing = (action.payload.amount < state.usdBalance);
+			let userHasEnteredPositiveTradingAmount = (action.payload.amount > 0);
 
-			let canTrade = userHasPositiveFromBalance && userHasEnteredNumericAmount && userIsNotOverdrawing;
+			let canTrade = userHasPositiveFromBalance && userHasEnteredNumericAmount &&
+				userIsNotOverdrawing && userHasEnteredPositiveTradingAmount;
 
 			return {
 				...state,

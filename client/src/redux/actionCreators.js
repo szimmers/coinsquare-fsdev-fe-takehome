@@ -30,7 +30,6 @@ export const updateTradeFromAmount = (amount) => {
 
 		axios.get(url)
 			.then(function (response) {
-				console.log('r:', response.data);
 				let quote = response.data.quote;
 
 				dispatch({
@@ -42,7 +41,14 @@ export const updateTradeFromAmount = (amount) => {
 				});
 			})
 			.catch(function (error) {
-				console.log('e:', error);
+				// if there's an error in the quote (e.g. bad user input), zero out everything
+				dispatch({
+					type: types.UPDATE_TRADE_FROM_AMOUNT,
+					payload: {
+						amount: 0,
+						quote: 0
+					}
+				});
 			});
 	}
 };
