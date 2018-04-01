@@ -11,8 +11,9 @@ To run:
 1. % npm install
 1. % cd ./client
 1. % npm install
+1. % cd ..
 1. % npm start
 
 Note that both client and server are started from a single
-command in the client directory.
+command in the top-level directory.
 
