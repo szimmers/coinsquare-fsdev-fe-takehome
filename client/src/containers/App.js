@@ -4,6 +4,7 @@ import './App.css';
 import AccountBalance from '../components/AccountBalance';
 import TradeFrom from '../components/TradeFrom';
 import TradeTo from '../components/TradeTo';
+import TradeButton from '../components/TradeButton';
 
 class App extends Component {
 	componentWillMount() {
@@ -22,6 +23,7 @@ class App extends Component {
 				<AccountBalance />
 				<TradeFrom />
 				<TradeTo />
+				<TradeButton />
 			</div>
 		);
 	}

@@ -1,17 +1,22 @@
 import axios from 'axios';
 import * as types from './types';
 
-/*
-export const fetchNewTime = () => ({
-	type: types.GET_ACCOUNT_BALANCE,
-	payload: new Date().toString(),
+/**
+ * the user is executing the trade for the given amount and quote. as this is a
+ * protype, we will not be going to the server to execute this trade or verifying
+ * that the quote is still valid. instead, we will simply be updating the balances
+ * for the holdings.
+ * @param amount
+ * @param quote
+ * @returns {{type: string, payload: {amount: *, quote: *}}}
+ */
+export const executeTrade = (amount, quote) => ({
+	type: types.EXECUTE_TRADE,
+	payload: {
+		amount: amount,
+		quote: quote
+	}
 });
-
-export const getQuote = (symbol) => ({
-	type: types.GET_QUOTE,
-	payload: symbol
-});
-*/
 
 /**
  * when user updates his trade-from amount, also get the quote so the payload

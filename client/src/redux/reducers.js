@@ -12,19 +12,31 @@ const initialState = {
 	tradeToQuote: 0
 };
 
-// Our root reducer starts with the initial state
-// and must return a representation of the next state
+/**
+ * for this simple prototype, all the reducers are located in this root reducer
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const rootReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case types.GET_ACCOUNT_BALANCE:
-			return {...state, currentTime: action.payload};
+		case types.EXECUTE_TRADE:
+			let tradeAmount = action.payload.amount;
+			let tradeQuote = action.payload.quote;
+
+			console.log(`EXECUTE: USD ${tradeAmount} for BTC ${tradeQuote}`);
+
+			let newUsdBalance = state.usdBalance - tradeAmount;
+			let newBtcBalance = state.btcBalance + tradeQuote;
+
+			return {...state, usdBalance: newUsdBalance, btcBalance: newBtcBalance};
 
 		case types.UPDATE_TRADE_FROM_AMOUNT:
 			console.log('payload:', action.payload);
 			return {
 				...state,
 				tradeFromAmount: action.payload.amount,
-				quote: action.payload.quote
+				tradeToQuote: action.payload.quote
 			};
 
 		default:
