@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+/**
+ * displays the user's account balances for holdings in each of USD and BTC.
+ */
 class AccountBalance extends Component {
-	componentWillMount() {
-	}
-
 	render() {
 		return (
 			<div>
@@ -38,5 +38,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(AccountBalance);
-/*
-*/
