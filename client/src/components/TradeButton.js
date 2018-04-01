@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {executeTrade} from '../redux/actionCreators'
+import './components.css';
 
 /**
  * allows user to execute the trade w/ the quoted amount
@@ -23,6 +24,7 @@ class TradeButton extends Component {
 	render() {
 		return (
 			<button
+				className="tradeButton"
 				onClick={this.executeTrade}
 				disabled={!this.props.canTrade}
 			>
