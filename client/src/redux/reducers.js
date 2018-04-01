@@ -42,6 +42,14 @@ const rootReducer = (state = initialState, action) => {
 			let canTrade = userHasPositiveFromBalance && userHasEnteredNumericAmount &&
 				userIsNotOverdrawing && userHasEnteredPositiveTradingAmount;
 
+			/*
+			console.log(`userHasPositiveFromBalance: ${userHasPositiveFromBalance}`);
+			console.log(`userHasEnteredNumericAmount: ${userHasEnteredNumericAmount}`);
+			console.log(`userIsNotOverdrawing: ${userIsNotOverdrawing}`);
+			console.log(`userHasEnteredPositiveTradingAmount: ${userHasEnteredPositiveTradingAmount}`);
+			console.log(`canTrade: ${canTrade}`);
+			*/
+
 			return {
 				...state,
 				tradeFromAmount: action.payload.amount,
