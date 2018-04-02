@@ -73,7 +73,7 @@ app.get('/api/quote/btcusd/:amount', function(req, res) {
 		else {
 			const result = JSON.parse(body);
 			let lastPrice = result.last_price;
-			let quote = amount * lastPrice;
+			let quote = amount / lastPrice;
 
 			res.json({
 				quote: quote
