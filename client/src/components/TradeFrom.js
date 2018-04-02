@@ -32,15 +32,14 @@ class TradeFrom extends Component {
 	render() {
 		return (
 			<div className="tradeBlock">
-				<h3>Trade</h3>
+				<h4 className="tradeBlockLabel">Trade</h4>
 
-				<select>
-					<option value="USD">USD</option>
-				</select>
-
-				<br/>
+				<div className="amount">
+					USD
+				</div>
 
 				<input
+					className="amount"
 					type="number"
 					placeholder="Enter your amount"
 					onChange={this.amountUpdated}

@@ -9,11 +9,11 @@ class AccountBalance extends Component {
 	render() {
 		return (
 			<div className="balanceBlock">
-				<h3>Account Balance</h3>
+				<h4>Account Balance</h4>
 
-				<label>
-					USD:
-					<span>
+				<label className="balanceBlockLabel">
+					USD
+					<span className="currency">
 					{new Intl.NumberFormat('en-US', {
 						style: 'currency',
 						currency: 'USD'
@@ -21,10 +21,9 @@ class AccountBalance extends Component {
 					</span>
 				</label>
 
-				<br/>
-				<label>
-					BTC:
-					<span>{this.props.btcBalance}</span>
+				<label className="balanceBlockLabel">
+					BTC
+					<span className="currency">{this.props.btcBalance}</span>
 				</label>
 			</div>
 		);

@@ -10,15 +10,13 @@ class TradeTo extends Component {
 	render() {
 		return (
 			<div className="tradeBlock">
-				<h3>For</h3>
+				<h4 className="tradeBlockLabel">For</h4>
 
-				<select>
-					<option value="BTC">BTC</option>
-				</select>
+				<div className="amount">
+					BTC
+				</div>
 
-				<br/>
-
-				<div>
+				<div className="amount">
 					{this.props.tradeToQuote}
 				</div>
 			</div>
