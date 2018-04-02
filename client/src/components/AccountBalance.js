@@ -23,7 +23,12 @@ class AccountBalance extends Component {
 
 				<label className="balanceBlockLabel">
 					BTC
-					<span className="currency">{this.props.btcBalance}</span>
+					<span className="currency">
+					{new Intl.NumberFormat('en-US', {
+						style: 'decimal',
+						minimumFractionDigits: 8
+					}).format(this.props.btcBalance)}
+					</span>
 				</label>
 			</div>
 		);
