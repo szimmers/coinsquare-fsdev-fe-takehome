@@ -21,18 +21,35 @@ const initialState = {
  */
 const rootReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case types.EXECUTE_TRADE:
+		case types.EXECUTE_TRADE: {
+
 			let tradeAmount = action.payload.amount;
 			let tradeQuote = action.payload.quote;
 
 			//console.log(`EXECUTE: USD ${tradeAmount} for BTC ${tradeQuote}`);
 
-			let newUsdBalance = state.usdBalance - tradeAmount;
-			let newBtcBalance = state.btcBalance + tradeQuote;
+			// do some error checks to ensure user can make trade
+			let userIsNotOverdrawing = (tradeAmount < state.usdBalance);
 
-			return {...state, usdBalance: newUsdBalance, btcBalance: newBtcBalance};
+			// if user can trade, proceed
+			if (userIsNotOverdrawing) {
+				let newUsdBalance = state.usdBalance - tradeAmount;
+				let newBtcBalance = state.btcBalance + tradeQuote;
 
-		case types.UPDATE_TRADE_FROM_AMOUNT:
+				// after executing the trade, we need to recheck the trade amount vs the new
+				// balance in order to propertly set the canTrade flag. if it's no good, the user
+				// will be forced to update the trade amount in order to trade again.
+				let canTrade = (tradeAmount < newUsdBalance);
+
+				return {...state, usdBalance: newUsdBalance, btcBalance: newBtcBalance, canTrade: canTrade};
+			}
+
+			// uh-oh, don't do trade and set flag
+			return {...state, canTrade: false};
+		}
+
+		case types.UPDATE_TRADE_FROM_AMOUNT: {
+
 			// do error checking to ensure user can make trade. state var canTrade tracks this.
 			let userHasPositiveFromBalance = (state.usdBalance > 0);
 			let userHasEnteredNumericAmount = !isNaN(parseFloat(action.payload.amount));
@@ -56,6 +73,7 @@ const rootReducer = (state = initialState, action) => {
 				tradeToQuote: action.payload.quote,
 				canTrade: canTrade
 			};
+		}
 
 		default:
 			return state;
