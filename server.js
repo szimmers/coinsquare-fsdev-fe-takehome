@@ -1,9 +1,7 @@
 const express = require('express');
 const request = require('request');
-//const bodyParser = require('body-parser');
 
 const app = express();
-//const jsonParser = bodyParser.json();
 
 const port = process.env.PORT || 3001;
 
@@ -15,10 +13,12 @@ const port = process.env.PORT || 3001;
 const BASE_BTX_URL = "https://api.bitfinex.com/v1";
 
 // for debugging, let's see each request we get
+/*
 app.use('/', function(req, res, next) {
 	console.log('req url:', req.url);
 	next();
 });
+*/
 
 /**
  * gets the last trade price for BTC/USD
