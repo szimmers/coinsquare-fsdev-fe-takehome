@@ -10,15 +10,15 @@ import AccountBalance from '../AccountBalance'
 const initialState = {};
 
 const mockStore = configureStore();
-let connectedComponent;
+let wrapper;
 let store;
 
 beforeEach(() => {
     store = mockStore(initialState);
-    connectedComponent = shallow(<AccountBalance store={store}/>)
+    wrapper = shallow(<AccountBalance store={store}/>)
 
 });
 
 it('renders without crashing', () => {
-    expect((connectedComponent).exists(<div className='balanceBlock'></div>)).toBe(true)
+    expect((wrapper).exists(<div className='balanceBlock'></div>)).toBe(true);
 });
