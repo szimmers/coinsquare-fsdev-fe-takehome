@@ -43,7 +43,8 @@ app.get('/api/ticker/btcusd', function(req, res) {
 });
 
 /**
- * gets the last trade price for BTC/USD
+ * for the provided USD amount, gets the last trade price for BTC/USD and provides a quote
+ * for how much BTC that would buy
  */
 app.get('/api/quote/btcusd/:amount', function(req, res) {
 	// try to convert the value we got into a number
